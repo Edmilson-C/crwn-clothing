@@ -8,6 +8,7 @@ import Homepage from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
 import LoginRegister from "./pages/login-register/login-register.component";
+import CheckoutPage from "./pages/checkout/checkout.component";
 
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { setCurrentUser } from "./redux/user/user.actions";
@@ -18,8 +19,6 @@ class App extends React.Component {
 
   componentDidMount() {
     const { setCurrentUser } = this.props;
-
-    
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
@@ -49,7 +48,7 @@ class App extends React.Component {
         <Header />
         <Switch>
           <Route exact path="/" component={Homepage} />
-          <Route exact path="/shop" component={ShopPage} />
+          <Route path="/shop" component={ShopPage} />
           <Route
             exact
             path="/signin"
@@ -57,6 +56,7 @@ class App extends React.Component {
               this.props.currentUser ? <Redirect to="/" /> : <LoginRegister />
             }
           />
+          <Route exact path="/checkout" component={CheckoutPage} />
         </Switch>
       </div>
     );
